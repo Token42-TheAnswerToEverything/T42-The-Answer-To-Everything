@@ -295,6 +295,98 @@
 
 
 
+<!-- ethers.js aus CDN -->
+<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
+
+<script>
+  const T42_CONTRACT_ADDRESS = "0x47f68c14BF799afAF3bbC2Dc0E7125De4BC976D1";
+
+  const T42_ABI = [
+    "function name() view returns (string)",
+    "function symbol() view returns (string)",
+    "function decimals() view returns (uint8)",
+    "function balanceOf(address owner) view returns (uint256)"
+  ];
+
+  let provider;
+  let signer;
+  let t42Contract;
+
+  const connectBtn = document.getElementById("connectWalletBtn");
+  const addTokenBtn = document.getElementById("addTokenBtn");
+  const walletAddressSpan = document.getElementById("walletAddress");
+  const walletBalanceSpan = document.getElementById("walletBalance");
+
+  async function connectWallet() {
+    if (!window.ethereum) {
+      alert("MetaMask wird benötigt.");
+      return;
+    }
+
+    try {
+      await window.ethereum.request({ method: "eth_requestAccounts" });
+
+      provider = new ethers.providers.Web3Provider(window.ethereum);
+      signer = provider.getSigner();
+
+      const network = await provider.getNetwork();
+      if (network.name !== "sepolia") {
+        alert("Bitte in MetaMask das Sepolia-Testnetz auswählen.");
+      }
+
+      const address = await signer.getAddress();
+      walletAddressSpan.textContent = address;
+
+      t42Contract = new ethers.Contract(T42_CONTRACT_ADDRESS, T42_ABI, provider);
+
+      await updateBalance();
+    } catch (err) {
+      console.error(err);
+      alert("Wallet konnte nicht verbunden werden.");
+    }
+  }
+
+  async function updateBalance() {
+    if (!t42Contract || !signer) return;
+
+    const address = await signer.getAddress();
+    const [rawBalance, decimals, symbol] = await Promise.all([
+      t42Contract.balanceOf(address),
+      t42Contract.decimals(),
+      t42Contract.symbol()
+    ]);
+
+    const humanBalance = ethers.utils.formatUnits(rawBalance, decimals);
+    walletBalanceSpan.textContent = humanBalance + " " + symbol;
+  }
+
+  async function addTokenToMetaMask() {
+    if (!window.ethereum) {
+      alert("MetaMask wird benötigt.");
+      return;
+    }
+
+    try {
+      await window.ethereum.request({
+        method: "wallet_watchAsset",
+        params: {
+          type: "ERC20",
+          options: {
+            address: T42_CONTRACT_ADDRESS,
+            symbol: "T42",
+            decimals: 18
+          }
+        }
+      });
+    } catch (err) {
+      console.error(err);
+      alert("T42 konnte nicht zu MetaMask hinzugefügt werden.");
+    }
+  }
+
+  connectBtn.addEventListener("click", connectWallet);
+  addTokenBtn.addEventListener("click", addTokenToMetaMask);
+</script>
 
 </body>
 </html>
