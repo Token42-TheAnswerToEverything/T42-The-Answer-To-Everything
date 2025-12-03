@@ -299,106 +299,110 @@
 <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
 
 <script>
-  const T42_CONTRACT_ADDRESS = "0x034805Dc5a298337ca5047122feeA1cE28281a7d";
+  document.addEventListener("DOMContentLoaded", () => {
+    const T42_CONTRACT_ADDRESS = "0x034805Dc5a298337ca5047122feeA1cE28281a7d";
 
-  const T42_ABI = [
-    "function name() view returns (string)",
-    "function symbol() view returns (string)",
-    "function decimals() view returns (uint8)",
-    "function balanceOf(address owner) view returns (uint256)"
-  ];
+    const T42_ABI = [
+      "function name() view returns (string)",
+      "function symbol() view returns (string)",
+      "function decimals() view returns (uint8)",
+      "function balanceOf(address owner) view returns (uint256)"
+    ];
 
-  let provider;
-  let signer;
-  let t42contract;
+    let provider;
+    let signer;
+    let t42contract;
 
-  const connectBtn = document.getElementById("connectWalletBtn");
-  const addTokenBtn = document.getElementById("addTokenBtn");
-  const walletAddressSpan = document.getElementById("walletAddress");
-  const walletBalanceSpan = document.getElementById("walletBalance");
+    const connectBtn = document.getElementById("connectWalletBtn");
+    const addTokenBtn = document.getElementById("addTokenBtn");
+    const walletAddressSpan = document.getElementById("walletAddress");
+    const walletBalanceSpan = document.getElementById("walletBalance");
 
-  async function connectWallet() {
-    try {
+    // Debug: falls was mit den IDs nicht stimmt
+    if (!connectBtn || !addTokenBtn || !walletAddressSpan || !walletBalanceSpan) {
+      console.error("T42-Elemente nicht gefunden:", {
+        connectBtn,
+        addTokenBtn,
+        walletAddressSpan,
+        walletBalanceSpan
+      });
+      return;
+    }
+
+    async function connectWallet() {
+      try {
+        if (!window.ethereum) {
+          alert("MetaMask wird benötigt.");
+          return;
+        }
+
+        provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+        await provider.send("eth_requestAccounts", []);
+
+        signer = provider.getSigner();
+        const address = await signer.getAddress();
+
+        t42contract = new ethers.Contract(
+          T42_CONTRACT_ADDRESS,
+          T42_ABI,
+          provider
+        );
+
+        walletAddressSpan.textContent = address;
+        await updateT42Balance(address);
+      } catch (err) {
+        console.error("Fehler beim Verbinden:", err);
+        alert("Fehler beim Verbinden:\n" + (err && err.message ? err.message : err));
+      }
+    }
+
+    async function updateT42Balance(address) {
+      if (!t42contract) return;
+
+      try {
+        const [rawBalance, decimals] = await Promise.all([
+          t42contract.balanceOf(address),
+          t42contract.decimals()
+        ]);
+
+        const humanBalance = ethers.utils.formatUnits(rawBalance, decimals);
+        walletBalanceSpan.textContent = humanBalance + " T42";
+      } catch (err) {
+        console.error("Fehler beim Laden der Balance:", err);
+        walletBalanceSpan.textContent = "Fehler beim Laden";
+      }
+    }
+
+    async function addTokenToMetaMask() {
       if (!window.ethereum) {
         alert("MetaMask wird benötigt.");
         return;
       }
 
-      // Provider aus MetaMask holen
-      provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-
-      // Zugriff auf das Wallet anfragen
-      await provider.send("eth_requestAccounts", []);
-
-      // Signer & Adresse
-      signer = provider.getSigner();
-      const address = await signer.getAddress();
-
-      // Contract-Instanz
-      t42contract = new ethers.Contract(
-        T42_CONTRACT_ADDRESS,
-        T42_ABI,
-        provider
-      );
-
-      // Adresse anzeigen (voll oder gekürzt, wie du magst)
-      walletAddressSpan.textContent = address;
-
-      // Balance laden
-      await updateT42Balance(address);
-
-    } catch (err) {
-      console.error("Fehler beim Verbinden:", err);
-      alert("Wallet konnte nicht verbunden werden.");
-    }
-  }
-
-  async function updateT42Balance(address) {
-    if (!t42contract) return;
-
-    try {
-      const [rawBalance, decimals] = await Promise.all([
-        t42contract.balanceOf(address),
-        t42contract.decimals()
-      ]);
-
-      const humanBalance = ethers.utils.formatUnits(rawBalance, decimals);
-      walletBalanceSpan.textContent = humanBalance + " T42";
-    } catch (err) {
-      console.error("Fehler beim Laden der Balance:", err);
-      walletBalanceSpan.textContent = "Fehler beim Laden";
-    }
-  }
-
-  async function addTokenToMetaMask() {
-    if (!window.ethereum) {
-      alert("MetaMask wird benötigt.");
-      return;
-    }
-
-    try {
-      await window.ethereum.request({
-        method: "wallet_watchAsset",
-        params: {
-          type: "ERC20",
-          options: {
-            address: T42_CONTRACT_ADDRESS,
-            symbol: "T42",
-            decimals: 18
+      try {
+        await window.ethereum.request({
+          method: "wallet_watchAsset",
+          params: {
+            type: "ERC20",
+            options: {
+              address: T42_CONTRACT_ADDRESS,
+              symbol: "T42",
+              decimals: 18
+            }
           }
-        }
-      });
-    } catch (err) {
-      console.error(err);
-      alert("T42 konnte nicht zu MetaMask hinzugefügt werden.");
+        });
+      } catch (err) {
+        console.error(err);
+        alert("T42 konnte nicht zu MetaMask hinzugefügt werden.");
+      }
     }
-  }
 
-  // Button-Events
-  connectBtn.addEventListener("click", connectWallet);
-  addTokenBtn.addEventListener("click", addTokenToMetaMask);
-
+    // Button-Events
+    connectBtn.addEventListener("click", connectWallet);
+    addTokenBtn.addEventListener("click", addTokenToMetaMask);
+  });
 </script>
+
 
 </body>
 </html>
