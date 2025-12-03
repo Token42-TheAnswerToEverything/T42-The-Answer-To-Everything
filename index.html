@@ -301,7 +301,6 @@
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const T42_CONTRACT_ADDRESS = "0x034805Dc5a298337ca5047122feeA1cE28281a7d";
-
     const T42_ABI = [
       "function name() view returns (string)",
       "function symbol() view returns (string)",
@@ -318,7 +317,6 @@
     const walletAddressSpan = document.getElementById("walletAddress");
     const walletBalanceSpan = document.getElementById("walletBalance");
 
-    // Debug: falls was mit den IDs nicht stimmt
     if (!connectBtn || !addTokenBtn || !walletAddressSpan || !walletBalanceSpan) {
       console.error("T42-Elemente nicht gefunden:", {
         connectBtn,
@@ -397,11 +395,11 @@
       }
     }
 
-    // Button-Events
     connectBtn.addEventListener("click", connectWallet);
     addTokenBtn.addEventListener("click", addTokenToMetaMask);
   });
 </script>
+
 
 
 </body>
