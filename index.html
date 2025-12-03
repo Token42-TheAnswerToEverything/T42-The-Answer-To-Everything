@@ -299,6 +299,7 @@
 <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
 
 <script>
+  <script>
   const T42_CONTRACT_ADDRESS = "0x034805Dc5a298337ca5047122feeA1cE28281a7d";
 
   const T42_ABI = [
@@ -310,7 +311,7 @@
 
   let provider;
   let signer;
-  let t42Contract;
+  let t42contract;
 
   const connectBtn = document.getElementById("connectWalletBtn");
   const addTokenBtn = document.getElementById("addTokenBtn");
@@ -318,46 +319,56 @@
   const walletBalanceSpan = document.getElementById("walletBalance");
 
   async function connectWallet() {
-    if (!window.ethereum) {
-      alert("MetaMask wird benötigt.");
-      return;
-    }
-
     try {
-      await window.ethereum.request({ method: "eth_requestAccounts" });
-
-      provider = new ethers.providers.Web3Provider(window.ethereum);
-      signer = provider.getSigner();
-
-      const network = await provider.getNetwork();
-      if (network.name !== "sepolia") {
-        alert("Bitte in MetaMask das Sepolia-Testnetz auswählen.");
+      if (!window.ethereum) {
+        alert("MetaMask wird benötigt.");
+        return;
       }
 
+      // Provider aus MetaMask holen
+      provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+
+      // Zugriff auf das Wallet anfragen
+      await provider.send("eth_requestAccounts", []);
+
+      // Signer & Adresse
+      signer = provider.getSigner();
       const address = await signer.getAddress();
+
+      // Contract-Instanz
+      t42contract = new ethers.Contract(
+        T42_CONTRACT_ADDRESS,
+        T42_ABI,
+        provider
+      );
+
+      // Adresse anzeigen (voll oder gekürzt, wie du magst)
       walletAddressSpan.textContent = address;
 
-      t42Contract = new ethers.Contract(T42_CONTRACT_ADDRESS, T42_ABI, provider);
+      // Balance laden
+      await updateT42Balance(address);
 
-      await updateBalance();
     } catch (err) {
-      console.error(err);
+      console.error("Fehler beim Verbinden:", err);
       alert("Wallet konnte nicht verbunden werden.");
     }
   }
 
-  async function updateBalance() {
-    if (!t42Contract || !signer) return;
+  async function updateT42Balance(address) {
+    if (!t42contract) return;
 
-    const address = await signer.getAddress();
-    const [rawBalance, decimals, symbol] = await Promise.all([
-      t42Contract.balanceOf(address),
-      t42Contract.decimals(),
-      t42Contract.symbol()
-    ]);
+    try {
+      const [rawBalance, decimals] = await Promise.all([
+        t42contract.balanceOf(address),
+        t42contract.decimals()
+      ]);
 
-    const humanBalance = ethers.utils.formatUnits(rawBalance, decimals);
-    walletBalanceSpan.textContent = humanBalance + " " + symbol;
+      const humanBalance = ethers.utils.formatUnits(rawBalance, decimals);
+      walletBalanceSpan.textContent = humanBalance + " T42";
+    } catch (err) {
+      console.error("Fehler beim Laden der Balance:", err);
+      walletBalanceSpan.textContent = "Fehler beim Laden";
+    }
   }
 
   async function addTokenToMetaMask() {
@@ -384,8 +395,11 @@
     }
   }
 
+  // Button-Events
   connectBtn.addEventListener("click", connectWallet);
   addTokenBtn.addEventListener("click", addTokenToMetaMask);
+</script>
+
 </script>
 
 </body>
