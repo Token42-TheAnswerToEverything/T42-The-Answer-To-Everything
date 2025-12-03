@@ -260,20 +260,41 @@
     <a class="etherscan-btn" href="https://sepolia.etherscan.io/address/0x47f68c14BF799afAF3bbC2Dc0E7125De4BC976D1" target="_blank">🔍 T42 auf Etherscan (Testnet)</a>
 </section>
 <section id="wallet" class="wallet-section">
-  <div class="t42-wallet-header">
-    <img src="img/t42-logo.png" alt="T42 Logo" class="t42-logo">
-    <div>
+  <div class="wallet-card">
+    
+    <div class="t42-wallet-header">
+      <img src="img/t42-logo.png" alt="T42 Logo" class="t42-logo">
+      <div>
         <h2>T42 Test-Wallet</h2>
-        <p>Verbinde deine MetaMask auf dem <strong>Sepolia Testnetz</strong>, um deinen T42-Saldo zu sehen.</p>
+        <p>Verbinde deine MetaMask auf dem <strong>Sepolia Testnetz</strong>, 
+        um deinen T42-Saldo zu sehen.</p>
+      </div>
     </div>
-</div>
 
-  <button id="connectWalletBtn">🔌 Wallet verbinden</button>
+    <div class="wallet-actions">
+      <button id="connectWalletBtn" class="wallet-btn wallet-btn-primary">
+        🔌 Wallet verbinden
+      </button>
 
-  <div id="walletInfo" style="margin-top: 10px;">
-    <div><strong>Adresse:</strong> <span id="walletAddress">– nicht verbunden –</span></div>
-    <div><strong>T42-Balance:</strong> <span id="walletBalance">–</span></div>
+      <button id="addTokenBtn" class="wallet-btn wallet-btn-secondary">
+        ➕ T42 zu MetaMask hinzufügen
+      </button>
+    </div>
+
+    <div id="walletInfo" class="wallet-info">
+      <div class="wallet-info-row">
+        <span class="wallet-label">Adresse:</span>
+        <span id="walletAddress" class="wallet-value">– nicht verbunden –</span>
+      </div>
+
+      <div class="wallet-info-row">
+        <span class="wallet-label">T42-Balance:</span>
+        <span id="walletBalance" class="wallet-value">–</span>
+      </div>
+    </div>
+
   </div>
+</section>
 
   <button id="addTokenBtn" style="margin-top:10px;">➕ T42 zu MetaMask hinzufügen</button>
 </section>
