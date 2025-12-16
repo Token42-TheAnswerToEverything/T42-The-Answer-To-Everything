@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>T42 – The Answer To Everything</title>
 
   <style>
@@ -11,17 +11,17 @@
       --panel:#111;
       --text:#d9d9d9;
       --muted:#bdbdbd;
-      --accent:#00eaff;
-      --accent2:#0088aa;
+      --cyan:#00eaff;
+      --cyanSoft:rgba(0,234,255,.20);
       --border:rgba(0,234,255,.25);
-      --shadow:rgba(0,234,255,.12);
     }
-    *{box-sizing:border-box}
+
+    *{ box-sizing:border-box; }
     body{
       margin:0;
       background:var(--bg);
       color:var(--text);
-      font-family:Segoe UI, Arial, sans-serif;
+      font-family:'Segoe UI', Arial, sans-serif;
       overflow-x:hidden;
     }
 
@@ -31,201 +31,239 @@
       display:flex;
       justify-content:center;
       gap:40px;
-      padding:18px 12px;
-      background:rgba(0,0,0,.4);
+      padding:18px 0;
+      background:rgba(0,0,0,.45);
       position:sticky;
       top:0;
-      backdrop-filter:blur(10px);
+      backdrop-filter: blur(10px);
       z-index:10;
       border-bottom:1px solid rgba(255,255,255,.06);
     }
     nav a{
       text-decoration:none;
-      color:var(--accent);
+      color:var(--cyan);
       font-size:1.05rem;
       transition:.25s;
     }
-    nav a:hover{color:#fff;text-shadow:0 0 10px var(--accent);}
+    nav a:hover{
+      color:#fff;
+      text-shadow:0 0 10px var(--cyan);
+    }
 
-    /* HERO */
+    /* HERO (oben ist jetzt sauber: nur EIN Header) */
     .hero{
       text-align:center;
-      padding:70px 20px 35px;
-      background:linear-gradient(180deg,#0b0f19 0%, #0f1524 100%);
-      border-bottom:1px solid rgba(255,255,255,.05);
-      animation:fadeIn .9s ease-out forwards;
+      padding:70px 20px 36px;
+      background: linear-gradient(180deg, #0b0f19 0%, #0f1524 100%);
+      border-bottom: 1px solid rgba(255,255,255,.06);
     }
     .hero h1{
       margin:0 0 14px;
       font-size:2.8rem;
-      color:var(--accent);
+      color:var(--cyan);
       letter-spacing:1px;
       text-shadow:0 0 12px rgba(0,234,255,.55);
     }
     .hero p{
-      margin:0 auto;
-      max-width:760px;
+      margin:0;
       font-size:1.2rem;
       color:rgba(217,217,217,.9);
-      line-height:1.6;
     }
 
-    .token-image{
-      display:block;
-      margin:35px auto 0;
-      width:min(280px, 70vw);
-      border-radius:50%;
-      filter:drop-shadow(0 0 18px rgba(0,234,255,.35));
-      animation:glow 4s ease-in-out infinite;
-    }
-    @keyframes glow{
-      0%{filter:drop-shadow(0 0 10px rgba(0,234,255,.2))}
-      50%{filter:drop-shadow(0 0 26px rgba(0,234,255,.6))}
-      100%{filter:drop-shadow(0 0 10px rgba(0,234,255,.2))}
-    }
-    @keyframes fadeIn{
-      from{opacity:0;transform:translateY(14px)}
-      to{opacity:1;transform:translateY(0)}
-    }
-
-    /* SECTIONS */
+    /* CONTENT */
     section{
-      padding:55px 20px;
+      padding:60px 20px;
       max-width:980px;
       margin:0 auto;
     }
     h2{
-      margin:0 0 16px;
       font-size:2rem;
-      color:var(--accent);
+      color:var(--cyan);
+      margin:0 0 18px;
       text-shadow:0 0 8px rgba(0,136,170,.6);
     }
     p{
-      margin:0 0 16px;
       font-size:1.15rem;
       line-height:1.65;
       color:#cfcfcf;
+      margin:0 0 16px;
     }
+
+    /* TOKEN IMAGE */
+    .token-image{
+      display:block;
+      margin:34px auto 0;
+      width:min(280px, 70vw);
+      border-radius:50%;
+      filter: drop-shadow(0 0 18px rgba(0,234,255,.25));
+      animation: glow 4s ease-in-out infinite;
+    }
+    @keyframes glow{
+      0%   { filter: drop-shadow(0 0 10px rgba(0,234,255,.18)); }
+      50%  { filter: drop-shadow(0 0 26px rgba(0,234,255,.55)); }
+      100% { filter: drop-shadow(0 0 10px rgba(0,234,255,.18)); }
+    }
+
+    /* BOXES */
     .box{
       background:var(--panel);
       border:1px solid var(--border);
       padding:18px 18px;
-      margin:14px 0;
-      border-radius:12px;
-      box-shadow:0 0 14px var(--shadow);
+      border-radius:14px;
+      box-shadow: 0 0 14px rgba(0,234,255,.12);
+      margin:16px 0;
     }
 
-    /* BUTTONS */
-    .button-row{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      justify-content:center;
-      margin-top:18px;
+    /* Etherscan Button */
+    .button-container{
+      text-align:center;
+      padding-top:10px;
     }
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      padding:12px 18px;
-      border-radius:10px;
-      border:1px solid var(--accent);
-      background:#0f1012;
-      color:var(--accent);
+    .etherscan-btn{
+      display:inline-block;
+      padding:14px 28px;
+      background:#101010;
+      border:1px solid var(--cyan);
+      color:var(--cyan);
       text-decoration:none;
-      font-size:1rem;
-      transition:.2s;
-      cursor:pointer;
-      user-select:none;
+      font-size:1.05rem;
+      border-radius:10px;
+      transition:.25s;
+      text-shadow:0 0 5px rgba(0,234,255,.6);
     }
-    .btn:hover{background:var(--accent);color:#000;box-shadow:0 0 14px rgba(0,234,255,.6)}
-    .btn.secondary{
-      border-color:rgba(0,234,255,.45);
-      color:rgba(0,234,255,.9);
-      background:#101216;
+    .etherscan-btn:hover{
+      background:var(--cyan);
+      color:#000;
+      box-shadow:0 0 14px rgba(0,234,255,.7);
     }
 
     /* WALLET CARD */
+    .wallet-section{ padding-top:20px; }
     .wallet-card{
-      background:linear-gradient(180deg, #0f1219 0%, #0c0d10 100%);
-      border:1px solid rgba(0,234,255,.22);
+      background:rgba(17,17,17,.9);
+      border:1px solid var(--border);
       border-radius:16px;
-      padding:18px;
+      padding:22px;
       box-shadow:0 0 16px rgba(0,234,255,.10);
     }
-    .wallet-head{
+    .wallet-header{
       display:flex;
       align-items:center;
-      gap:14px;
+      gap:16px;
       margin-bottom:14px;
     }
-    .wallet-head img{
-      width:46px;height:46px;border-radius:50%;
-      border:1px solid rgba(0,234,255,.25);
-      filter:drop-shadow(0 0 10px rgba(0,234,255,.25));
+    .wallet-header img{
+      width:54px;
+      height:54px;
+      border-radius:50%;
+      filter: drop-shadow(0 0 12px rgba(0,234,255,.25));
     }
-    .wallet-head h3{
+    .wallet-header h3{
       margin:0;
-      font-size:1.4rem;
-      color:var(--accent);
+      color:var(--cyan);
+      font-size:1.55rem;
     }
-    .wallet-head .sub{
+    .wallet-header p{
       margin:4px 0 0;
-      color:#cfcfcf;
+      color:rgba(204,204,204,.95);
+      font-size:1.05rem;
+    }
+
+    .wallet-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin:14px 0 16px;
+    }
+    .wallet-btn{
+      padding:12px 16px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,.12);
+      background:#0f0f10;
+      color:#fff;
+      cursor:pointer;
+      transition:.2s;
       font-size:1rem;
+    }
+    .wallet-btn:hover{ transform: translateY(-1px); }
+    .wallet-btn-primary{
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
+    .wallet-btn-primary:hover{
+      background: var(--cyan);
+      color:#000;
+      box-shadow:0 0 12px rgba(0,234,255,.7);
+    }
+    .wallet-btn-secondary{
+      border-color: rgba(0,234,255,.45);
+      color: rgba(0,234,255,.9);
     }
 
     .wallet-info{
-      margin-top:14px;
-      background:rgba(255,255,255,.03);
-      border:1px solid rgba(255,255,255,.06);
-      border-radius:12px;
-      padding:12px 12px;
+      display:grid;
+      gap:10px;
+      padding-top:10px;
+      border-top:1px solid rgba(255,255,255,.08);
     }
-    .row{
+    .wallet-row{
       display:flex;
-      justify-content:space-between;
-      gap:14px;
-      padding:6px 0;
-      border-bottom:1px dashed rgba(255,255,255,.06);
+      gap:10px;
+      align-items:flex-start;
+      flex-wrap:wrap;
+      font-size:1.05rem;
     }
-    .row:last-child{border-bottom:none}
-    .label{color:#bdbdbd}
-    .value{color:#fff;max-width:70%;text-align:right;word-break:break-all}
-
-    .status{
-      margin-top:10px;
-      font-size:.95rem;
-      color:#bdbdbd;
+    .wallet-label{
+      color:#9aa0a6;
+      min-width:100px;
     }
-    .status.ok{color:#7dffb2}
-    .status.bad{color:#ffb37d}
+    .wallet-value{
+      color:#e6e6e6;
+      word-break:break-all;
+    }
+    .status-dot{
+      display:inline-block;
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:#555;
+      margin-right:8px;
+      box-shadow:none;
+    }
+    .status-dot.on{
+      background:#29ff8a;
+      box-shadow:0 0 12px rgba(41,255,138,.55);
+    }
 
     /* FOOTER */
     footer{
       text-align:center;
-      padding:34px 12px;
+      padding:46px 20px;
+      font-size:.9rem;
+      opacity:.85;
       border-top:1px solid rgba(255,255,255,.06);
-      opacity:.9;
+      background:rgba(0,0,0,.25);
     }
     .social{
+      margin:18px 0 6px;
       display:flex;
-      gap:18px;
       justify-content:center;
+      gap:22px;
       flex-wrap:wrap;
-      margin:14px 0 6px;
     }
     .social a{
-      color:var(--accent);
+      color:var(--cyan);
       text-decoration:none;
       border:1px solid rgba(0,234,255,.25);
-      padding:10px 12px;
-      border-radius:10px;
+      padding:10px 14px;
+      border-radius:12px;
       transition:.2s;
     }
-    .social a:hover{background:rgba(0,234,255,.12);box-shadow:0 0 14px rgba(0,234,255,.15)}
-    .copy{opacity:.65;font-size:.9rem}
+    .social a:hover{
+      background:rgba(0,234,255,.12);
+      box-shadow:0 0 12px rgba(0,234,255,.25);
+      transform:translateY(-1px);
+    }
   </style>
 </head>
 
@@ -238,7 +276,6 @@
   </header>
 
   <nav>
-    <a href="#home">Home</a>
     <a href="#about">About</a>
     <a href="#roadmap">Roadmap</a>
     <a href="#tokenomics">Tokenomics</a>
@@ -259,7 +296,7 @@
     <div class="box"><b>Phase 1 – Birth of 42</b><br/>Token erstellt, Logo gebaut, GitHub eingerichtet, Webseite gestartet.</div>
     <div class="box"><b>Phase 2 – Der Mittelfinger an Stress</b><br/>Community aufbauen – die wichtigste Phase des ganzen Projekts.</div>
     <div class="box"><b>Phase 3 – Mainnet Erwägung</b><br/>Vielleicht. Vielleicht nicht. T42 bleibt authentisch und ohne Druck.</div>
-    <div class="box"><b>Phase 4 – T42 Utility?</b><br/>Wenn's die Community will – optional und flexibel.</div>
+    <div class="box"><b>Phase 4 – T42 Utility?</b><br/>Wenn’s die Community will – optional und flexibel.</div>
     <div class="box"><b>Phase 5 – The Answer To Everything</b><br/>Merch + Easter Eggs. Spaß, Überraschungen und kleine Belohnungen.</div>
   </section>
 
@@ -273,45 +310,46 @@
     <div class="box"><b>Utility:</b> Keine Verpflichtung · Community entscheidet</div>
   </section>
 
-  <section id="wallet">
+  <section id="wallet" class="wallet-section">
     <h2>Wallet</h2>
 
     <div class="wallet-card">
-      <div class="wallet-head">
+      <div class="wallet-header">
         <img src="t42-token.png" alt="T42 Logo">
         <div>
-          <h3>T42 Test-Wallet</h3>
-          <div class="sub">Verbinde MetaMask im <b>Sepolia</b>-Testnetz, um deinen T42-Saldo zu sehen.</div>
+          <h3><span class="status-dot" id="statusDot"></span>T42 Test-Wallet</h3>
+          <p>Verbinde deine MetaMask auf dem <b>Sepolia</b>-Testnetz, um deinen T42-Saldo zu sehen.</p>
         </div>
       </div>
 
-      <div class="button-row">
-        <button class="btn" id="connectWalletBtn">🔌 Wallet verbinden</button>
-        <button class="btn secondary" id="addTokenBtn">➕ T42 zu MetaMask hinzufügen</button>
+      <div class="wallet-actions">
+        <button id="connectWalletBtn" class="wallet-btn wallet-btn-primary">🔌 Wallet verbinden</button>
+        <button id="addTokenBtn" class="wallet-btn wallet-btn-secondary">➕ T42 zu MetaMask hinzufügen</button>
       </div>
 
       <div class="wallet-info">
-        <div class="row">
-          <div class="label">Adresse</div>
-          <div class="value" id="walletAddress">– nicht verbunden –</div>
+        <div class="wallet-row">
+          <span class="wallet-label">Adresse:</span>
+          <span id="walletAddress" class="wallet-value">- nicht verbunden -</span>
         </div>
-        <div class="row">
-          <div class="label">T42 Balance</div>
-          <div class="value" id="walletBalance">0</div>
+        <div class="wallet-row">
+          <span class="wallet-label">T42-Balance:</span>
+          <span id="walletBalance" class="wallet-value">0</span>
+        </div>
+        <div class="wallet-row">
+          <span class="wallet-label">Contract:</span>
+          <span id="contractAddress" class="wallet-value">0x034805Dc5a298337ca5047122feeA1cE28281a7d</span>
         </div>
       </div>
-
-      <div class="status" id="walletStatus">Status: nicht verbunden</div>
     </div>
   </section>
 
-  <section id="etherscan">
-    <h2>Etherscan</h2>
-    <div class="button-row">
-      <a class="btn" href="https://sepolia.etherscan.io/address/0x034805Dc5a298337ca5047122feeA1cE28281a7d" target="_blank" rel="noreferrer">
-        🔍 T42 auf Etherscan (Sepolia)
-      </a>
-    </div>
+  <section id="etherscan" class="button-container">
+    <a class="etherscan-btn"
+       href="https://sepolia.etherscan.io/address/0x034805Dc5a298337ca5047122feeA1cE28281a7d"
+       target="_blank" rel="noreferrer">
+      🔍 T42 auf Etherscan (Sepolia)
+    </a>
   </section>
 
   <footer>
@@ -319,7 +357,7 @@
       <a href="https://www.facebook.com/profile.php?id=100004980010183" target="_blank" rel="noreferrer">Facebook</a>
       <a href="https://t.me/Token42Community" target="_blank" rel="noreferrer">Telegram Community</a>
     </div>
-    <div class="copy">© 2025 T42 – The Answer To Everything (Don't Panic)</div>
+    © 2025 T42 – The Answer To Everything (Don't Panic)
   </footer>
 
   <!-- ethers.js -->
@@ -327,6 +365,7 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
+      // ✅ DAS ist dein gewünschter Contract (B)
       const T42_CONTRACT_ADDRESS = "0x034805Dc5a298337ca5047122feeA1cE28281a7d";
       const T42_ABI = [
         "function decimals() view returns (uint8)",
@@ -335,94 +374,66 @@
 
       const connectBtn = document.getElementById("connectWalletBtn");
       const addTokenBtn = document.getElementById("addTokenBtn");
-      const walletAddressEl = document.getElementById("walletAddress");
-      const walletBalanceEl = document.getElementById("walletBalance");
-      const statusEl = document.getElementById("walletStatus");
+      const walletAddressSpan = document.getElementById("walletAddress");
+      const walletBalanceSpan = document.getElementById("walletBalance");
+      const statusDot = document.getElementById("statusDot");
 
-      let provider, signer, contract;
+      let provider, signer, t42contract;
 
-      function setStatus(text, type){
-        statusEl.textContent = "Status: " + text;
-        statusEl.classList.remove("ok","bad");
-        if(type) statusEl.classList.add(type);
-      }
-
-      function shorten(addr){
-        if(!addr || addr.length < 10) return addr;
-        return addr.slice(0,6) + "…" + addr.slice(-4);
-      }
-
-      async function ensureSepolia(){
-        // Sepolia chainId = 11155111 = 0xaa36a7
-        const chainId = await window.ethereum.request({ method: "eth_chainId" });
-        if(chainId !== "0xaa36a7"){
-          setStatus("falsches Netzwerk – bitte Sepolia auswählen", "bad");
-          throw new Error("Bitte Sepolia Testnetz in MetaMask auswählen.");
+      function setConnected(on){
+        if(on){
+          statusDot.classList.add("on");
+        } else {
+          statusDot.classList.remove("on");
         }
       }
 
-      async function updateBalance(address){
-        const [raw, decimals] = await Promise.all([
-          contract.balanceOf(address),
-          contract.decimals()
-        ]);
-        const human = ethers.utils.formatUnits(raw, decimals);
-        walletBalanceEl.textContent = human + " T42";
-      }
-
-      async function connectWallet(){
-        try{
-          if(!window.ethereum){
+      async function connectWallet() {
+        try {
+          if (!window.ethereum) {
             alert("MetaMask wird benötigt.");
             return;
           }
+
           provider = new ethers.providers.Web3Provider(window.ethereum, "any");
           await provider.send("eth_requestAccounts", []);
-          await ensureSepolia();
-
           signer = provider.getSigner();
+
           const address = await signer.getAddress();
+          walletAddressSpan.textContent = address;
 
-          contract = new ethers.Contract(T42_CONTRACT_ADDRESS, T42_ABI, provider);
+          t42contract = new ethers.Contract(T42_CONTRACT_ADDRESS, T42_ABI, provider);
 
-          walletAddressEl.textContent = address;
-          setStatus("verbunden (" + shorten(address) + ")", "ok");
-
-          await updateBalance(address);
-
-          // Update bei Account/Chain Wechsel
-          window.ethereum.on("accountsChanged", async (accs) => {
-            if(!accs || !accs[0]){
-              walletAddressEl.textContent = "– nicht verbunden –";
-              walletBalanceEl.textContent = "0";
-              setStatus("nicht verbunden");
-              return;
-            }
-            try{
-              await ensureSepolia();
-              walletAddressEl.textContent = accs[0];
-              setStatus("verbunden (" + shorten(accs[0]) + ")", "ok");
-              await updateBalance(accs[0]);
-            }catch(e){}
-          });
-
-          window.ethereum.on("chainChanged", async () => {
-            // Seite sauber neu laden (MetaMask Empfehlung)
-            location.reload();
-          });
-
-        }catch(err){
+          setConnected(true);
+          await updateT42Balance(address);
+        } catch (err) {
           console.error(err);
-          alert(err && err.message ? err.message : String(err));
+          setConnected(false);
+          alert("Fehler beim Verbinden:\n" + (err?.message || err));
         }
       }
 
-      async function addToken(){
-        try{
-          if(!window.ethereum){
-            alert("MetaMask wird benötigt.");
-            return;
-          }
+      async function updateT42Balance(address) {
+        try {
+          const [rawBalance, decimals] = await Promise.all([
+            t42contract.balanceOf(address),
+            t42contract.decimals()
+          ]);
+          const human = ethers.utils.formatUnits(rawBalance, decimals);
+          walletBalanceSpan.textContent = human + " T42";
+        } catch (err) {
+          console.error(err);
+          walletBalanceSpan.textContent = "Fehler beim Laden";
+        }
+      }
+
+      async function addTokenToMetaMask() {
+        if (!window.ethereum) {
+          alert("MetaMask wird benötigt.");
+          return;
+        }
+
+        try {
           await window.ethereum.request({
             method: "wallet_watchAsset",
             params: {
@@ -431,18 +442,19 @@
                 address: T42_CONTRACT_ADDRESS,
                 symbol: "T42",
                 decimals: 18,
-                image: (location.origin + location.pathname.replace(/\/[^\/]*$/, "/") + "t42-token.png")
+                image: window.location.origin + "/t42-token.png"
               }
             }
           });
-        }catch(e){
-          console.error(e);
+        } catch (err) {
+          console.error(err);
           alert("T42 konnte nicht hinzugefügt werden.");
         }
       }
 
       connectBtn.addEventListener("click", connectWallet);
-      addTokenBtn.addEventListener("click", addToken);
+      addTokenBtn.addEventListener("click", addTokenToMetaMask);
+      setConnected(false);
     });
   </script>
 
