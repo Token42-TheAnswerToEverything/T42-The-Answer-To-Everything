@@ -111,12 +111,13 @@
       50%{ transform: scale(1.05); opacity:1; }
     }
 
+    /* Coin wrapper */
     .coin-wrap{
       position:relative;
       width: min(320px, 44vw);
       height: min(320px, 44vw);
       border-radius: 50%;
-      overflow:hidden; /* kill rectangle edges */
+      overflow:hidden;
       box-shadow: 0 0 26px rgba(0,234,255,.22);
       border: 1px solid rgba(0,234,255,.14);
       background: radial-gradient(circle at 50% 50%,
@@ -126,7 +127,7 @@
       transform: translateZ(0);
     }
 
-    /* ✅ COIN ROTATION WIEDER AN */
+    /* ✅ Coin dreht + float */
     .coin{
       width: 100%;
       height: 100%;
@@ -367,7 +368,6 @@
 </head>
 
 <body>
-
   <nav>
     <a href="#about">About</a>
     <a href="#roadmap">Roadmap</a>
@@ -519,11 +519,16 @@
       walletNetworkEl.textContent = (chainId === SEPOLIA_CHAIN_ID_HEX) ? "Sepolia" : ("Chain " + chainId);
 
       if(chainId !== SEPOLIA_CHAIN_ID_HEX){
-        await window.ethereum.request({
-          method: "wallet_switchEthereumChain",
-          params: [{ chainId: SEPOLIA_CHAIN_ID_HEX }]
-        });
-        walletNetworkEl.textContent = "Sepolia";
+        try{
+          await window.ethereum.request({
+            method: "wallet_switchEthereumChain",
+            params: [{ chainId: SEPOLIA_CHAIN_ID_HEX }]
+          });
+          walletNetworkEl.textContent = "Sepolia";
+        }catch(err){
+          alert("Bitte in MetaMask auf 'Sepolia' wechseln, dann erneut verbinden.");
+          throw err;
+        }
       }
     }
 
@@ -574,8 +579,8 @@
       }
     }
 
-    connectBtn.addEventListener("click", connectWallet);
-    addTokenBtn.addEventListener("click", addTokenToMetaMask);
+    if (connectBtn) connectBtn.addEventListener("click", connectWallet);
+    if (addTokenBtn) addTokenBtn.addEventListener("click", addTokenToMetaMask);
     window.addEventListener("load", () => setDisconnectedUI());
 
     // Counter (lokal pro Browser)
