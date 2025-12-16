@@ -1,435 +1,450 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Token 42 – The Answer To Everything</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>T42 – The Answer To Everything</title>
 
-    <style>
-        body {
-            margin: 0;
-            background: #0b0c0d;
-            color: #d9d9d9;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            overflow-x: clip;
-        }
-
-        /* Navigation */
-        nav {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            padding: 22px 0;
-            background: rgba(0, 0, 0, 0.4);
-            position: sticky;
-            top: 0;
-            backdrop-filter: blur(10px);
-            z-index: 10;
-        }
-
-        nav > a {
-            text-decoration: none;
-            color: #00eaff;
-            font-size: 1.05rem;
-            transition: 0.3s;
-        }
-
-        nav a:hover {
-            color: #ffffff;
-            text-shadow: 0 0 10px #00eaff;
-        }
-
-        header {
-            text-align: center;
-            padding: 60px 20px 20px;
-        }
-
-        h1 {
-            font-size: 2.8rem;
-            color: #00eaff;
-            letter-spacing: 1px;
-            text-shadow: 0 0 10px #0088aa;
-        }
-
-        .token-image {
-            display: block;
-            margin: 40px auto 20px;
-            max-width: 260px;
-            border-radius: 50%;
-            filter: drop-shadow(0 0 20px #00eaff55);
-            animation: glow 4s ease-in-out infinite;
-        }
-
-        @keyframes glow {
-            0% { filter: drop-shadow(0 0 10px #00eaff33); }
-            50% { filter: drop-shadow(0 0 25px #00eaffaa); }
-            100% { filter: drop-shadow(0 0 10px #00eaff33); }
-        }
-
-        section {
-            padding: 60px 20px;
-            max-width: 900px;
-            margin: auto;
-        }
-
-        h2 {
-            font-size: 2rem;
-            color: #00eaff;
-            margin-bottom: 20px;
-            text-shadow: 0 0 8px #0088aa;
-        }
-
-        p {
-            font-size: 1.2rem;
-            line-height: 1.65;
-            margin-bottom: 20px;
-            color: #cccccc;
-        }
-
-        .roadmap-phase, .tokenomics-box {
-            background: #111;
-            border: 1px solid #00eaff44;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 12px;
-            box-shadow: 0 0 12px #00eaff22;
-        }
-
-        .button-container { text-align:center; margin-top:30px; }
-
-        .etherscan-btn {
-            display: inline-block;
-            padding: 14px 28px;
-            background: #111;
-            border: 1px solid #00eaff;
-            color: #00eaff;
-            text-decoration: none;
-            font-size: 1.1rem;
-            border-radius: 8px;
-            transition: 0.25s;
-            text-shadow: 0 0 5px #00eaff;
-        }
-
-        .etherscan-btn:hover {
-            background: #00eaff;
-            color: #000;
-            box-shadow: 0 0 12px #00eaff;
-        }
-
-        footer {
-            text-align: center;
-            padding: 40px 0;
-            font-size: 0.85rem;
-            opacity: 0.6;
-    123     }     ← letzte Klammer deines bisherigen CSS
-124
-125     /* --- Hero Section --- */
-126     .hero {
-127         text-align: center;
-128         padding: 80px 20px;
-129         background: linear-gradient(180deg, #0b0f19 0%, #0f1524 100%);
-130         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-131         animation: fadeInHero 1.2s ease-out forwards;
-132     }
-133
-134     .hero h1 {
-135         font-size: 2.6rem;
-136         color: #00eaff;
-137         margin-bottom: 20px;
-138         text-shadow: 0 0 12px rgba(0, 234, 255, 0.6);
-139         animation: floatHero 4s ease-in-out infinite;
-140     }
-141
-142     .hero p {
-143         font-size: 1.3rem;
-144         color: #d9d9d9;
-145         max-width: 700px;
-146         margin: 0 auto;
-147         opacity: 0.85;
-148     }
-149
-150     @keyframes fadeInHero {
-151         0% { opacity: 0; transform: translateY(20px); }
-152         100% { opacity: 1; transform: translateY(0); }
-153     }
-154
-155     @keyframes floatHero {
-156         0% { transform: translateY(0); }
-157         50% { transform: translateY(-6px); }
-158         100% { transform: translateY(0); }
-159     }
-160
-161 </style>   
+  <style>
+    :root{
+      --bg:#0b0c0d;
+      --panel:#111;
+      --text:#d9d9d9;
+      --muted:#bdbdbd;
+      --accent:#00eaff;
+      --accent2:#0088aa;
+      --border:rgba(0,234,255,.25);
+      --shadow:rgba(0,234,255,.12);
     }
-    </style>
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:Segoe UI, Arial, sans-serif;
+      overflow-x:hidden;
+    }
 
-    <style>
-    /* --- Social Icon Animations --- */
+    /* NAV */
+    nav{
+      width:100%;
+      display:flex;
+      justify-content:center;
+      gap:40px;
+      padding:18px 12px;
+      background:rgba(0,0,0,.4);
+      position:sticky;
+      top:0;
+      backdrop-filter:blur(10px);
+      z-index:10;
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    nav a{
+      text-decoration:none;
+      color:var(--accent);
+      font-size:1.05rem;
+      transition:.25s;
+    }
+    nav a:hover{color:#fff;text-shadow:0 0 10px var(--accent);}
 
-/* Container zentrieren */
-.social-container {
-    text-align: center;
-    margin: 40px 0;
-}
+    /* HERO */
+    .hero{
+      text-align:center;
+      padding:70px 20px 35px;
+      background:linear-gradient(180deg,#0b0f19 0%, #0f1524 100%);
+      border-bottom:1px solid rgba(255,255,255,.05);
+      animation:fadeIn .9s ease-out forwards;
+    }
+    .hero h1{
+      margin:0 0 14px;
+      font-size:2.8rem;
+      color:var(--accent);
+      letter-spacing:1px;
+      text-shadow:0 0 12px rgba(0,234,255,.55);
+    }
+    .hero p{
+      margin:0 auto;
+      max-width:760px;
+      font-size:1.2rem;
+      color:rgba(217,217,217,.9);
+      line-height:1.6;
+    }
 
-/* Grunddesign der Icons */
-.social-icon {
-    margin: 0 20px;
-    color: #00eaff;
-    font-size: 1.6rem;
-    text-decoration: none;
-    display: inline-block;
-    transition: 0.3s ease;
-    position: relative;
-    animation: float 3s ease-in-out infinite;
-}
+    .token-image{
+      display:block;
+      margin:35px auto 0;
+      width:min(280px, 70vw);
+      border-radius:50%;
+      filter:drop-shadow(0 0 18px rgba(0,234,255,.35));
+      animation:glow 4s ease-in-out infinite;
+    }
+    @keyframes glow{
+      0%{filter:drop-shadow(0 0 10px rgba(0,234,255,.2))}
+      50%{filter:drop-shadow(0 0 26px rgba(0,234,255,.6))}
+      100%{filter:drop-shadow(0 0 10px rgba(0,234,255,.2))}
+    }
+    @keyframes fadeIn{
+      from{opacity:0;transform:translateY(14px)}
+      to{opacity:1;transform:translateY(0)}
+    }
 
-/* Glow + Vergrößern beim Hover */
-.social-icon:hover {
-    transform: scale(1.25) translateY(-3px);
-    text-shadow: 0 0 10px #00eaff, 0 0 20px #00eaff;
-    cursor: pointer;
-}
+    /* SECTIONS */
+    section{
+      padding:55px 20px;
+      max-width:980px;
+      margin:0 auto;
+    }
+    h2{
+      margin:0 0 16px;
+      font-size:2rem;
+      color:var(--accent);
+      text-shadow:0 0 8px rgba(0,136,170,.6);
+    }
+    p{
+      margin:0 0 16px;
+      font-size:1.15rem;
+      line-height:1.65;
+      color:#cfcfcf;
+    }
+    .box{
+      background:var(--panel);
+      border:1px solid var(--border);
+      padding:18px 18px;
+      margin:14px 0;
+      border-radius:12px;
+      box-shadow:0 0 14px var(--shadow);
+    }
 
-/* Schwebende Bewegung */
-@keyframes float {
-    0%   { transform: translateY(0); }
-    50%  { transform: translateY(-4px); }
-    100% { transform: translateY(0); }
-}
-</style>
+    /* BUTTONS */
+    .button-row{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      justify-content:center;
+      margin-top:18px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:12px 18px;
+      border-radius:10px;
+      border:1px solid var(--accent);
+      background:#0f1012;
+      color:var(--accent);
+      text-decoration:none;
+      font-size:1rem;
+      transition:.2s;
+      cursor:pointer;
+      user-select:none;
+    }
+    .btn:hover{background:var(--accent);color:#000;box-shadow:0 0 14px rgba(0,234,255,.6)}
+    .btn.secondary{
+      border-color:rgba(0,234,255,.45);
+      color:rgba(0,234,255,.9);
+      background:#101216;
+    }
 
+    /* WALLET CARD */
+    .wallet-card{
+      background:linear-gradient(180deg, #0f1219 0%, #0c0d10 100%);
+      border:1px solid rgba(0,234,255,.22);
+      border-radius:16px;
+      padding:18px;
+      box-shadow:0 0 16px rgba(0,234,255,.10);
+    }
+    .wallet-head{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      margin-bottom:14px;
+    }
+    .wallet-head img{
+      width:46px;height:46px;border-radius:50%;
+      border:1px solid rgba(0,234,255,.25);
+      filter:drop-shadow(0 0 10px rgba(0,234,255,.25));
+    }
+    .wallet-head h3{
+      margin:0;
+      font-size:1.4rem;
+      color:var(--accent);
+    }
+    .wallet-head .sub{
+      margin:4px 0 0;
+      color:#cfcfcf;
+      font-size:1rem;
+    }
+
+    .wallet-info{
+      margin-top:14px;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:12px;
+      padding:12px 12px;
+    }
+    .row{
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      padding:6px 0;
+      border-bottom:1px dashed rgba(255,255,255,.06);
+    }
+    .row:last-child{border-bottom:none}
+    .label{color:#bdbdbd}
+    .value{color:#fff;max-width:70%;text-align:right;word-break:break-all}
+
+    .status{
+      margin-top:10px;
+      font-size:.95rem;
+      color:#bdbdbd;
+    }
+    .status.ok{color:#7dffb2}
+    .status.bad{color:#ffb37d}
+
+    /* FOOTER */
+    footer{
+      text-align:center;
+      padding:34px 12px;
+      border-top:1px solid rgba(255,255,255,.06);
+      opacity:.9;
+    }
+    .social{
+      display:flex;
+      gap:18px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin:14px 0 6px;
+    }
+    .social a{
+      color:var(--accent);
+      text-decoration:none;
+      border:1px solid rgba(0,234,255,.25);
+      padding:10px 12px;
+      border-radius:10px;
+      transition:.2s;
+    }
+    .social a:hover{background:rgba(0,234,255,.12);box-shadow:0 0 14px rgba(0,234,255,.15)}
+    .copy{opacity:.65;font-size:.9rem}
+  </style>
 </head>
 
 <body>
 
-    <header class="hero">
-        <h1>T42 – The Answer To Everything</h1>
-        <p>Der Token für Menschen, die mitten im Wandel stehen.</p>
-    </header>
+  <header class="hero" id="home">
+    <h1>T42 – The Answer To Everything</h1>
+    <p>Der Token für Menschen, die mitten im Wandel stehen.</p>
+    <img src="t42-token.png" class="token-image" alt="T42 Token Logo" />
+  </header>
 
-<nav>
+  <nav>
     <a href="#home">Home</a>
     <a href="#about">About</a>
     <a href="#roadmap">Roadmap</a>
     <a href="#tokenomics">Tokenomics</a>
+    <a href="#wallet">Wallet</a>
     <a href="#etherscan">Etherscan</a>
-</nav>
+  </nav>
 
-<header id="home">
-    <h1>Token 42 – The Answer To Everything</h1>
-</header>
-
-<img src="b54f7f20-fddc-4a0a-af8e-8389d5947f0e.png" class="token-image" alt="T42 Token Logo" />
-
-<section id="about">
+  <section id="about">
     <h2>About T42</h2>
     <p>Der Token für Menschen, die mitten im Wandel stehen, lachen können – und akzeptieren, dass ein kleiner Rest Wehmut dazugehört.</p>
     <p>T42 ist humorvoll, aber tiefgründig. Er symbolisiert Veränderung, Sinnsuche und den Mut, alten Stress hinter sich zu lassen – auch wenn dabei ein Stück Vergangenheit zurückbleibt, das einmal wichtig war.</p>
     <p>T42 ist ein kleiner Mittelfinger an Druck, Chaos und Jobs, die einem die Freiheit rauben. Er steht für ein Leben, das man ernst nimmt – aber nicht zu ernst.</p>
     <p>Wer T42 hält, hält nicht nur einen Coin, sondern eine Erinnerung daran, dass jeder Neuanfang leichter wird, wenn man ehrlich zu sich selbst ist – und über sich selbst schmunzeln kann.</p>
-</section>
+  </section>
 
-<section id="roadmap">
+  <section id="roadmap">
     <h2>Roadmap</h2>
+    <div class="box"><b>Phase 1 – Birth of 42</b><br/>Token erstellt, Logo gebaut, GitHub eingerichtet, Webseite gestartet.</div>
+    <div class="box"><b>Phase 2 – Der Mittelfinger an Stress</b><br/>Community aufbauen – die wichtigste Phase des ganzen Projekts.</div>
+    <div class="box"><b>Phase 3 – Mainnet Erwägung</b><br/>Vielleicht. Vielleicht nicht. T42 bleibt authentisch und ohne Druck.</div>
+    <div class="box"><b>Phase 4 – T42 Utility?</b><br/>Wenn's die Community will – optional und flexibel.</div>
+    <div class="box"><b>Phase 5 – The Answer To Everything</b><br/>Merch + Easter Eggs. Spaß, Überraschungen und kleine Belohnungen.</div>
+  </section>
 
-    <div class="roadmap-phase"><strong>Phase 1 – Birth of 42</strong><br>Token erstellt, Logo gebaut, GitHub eingerichtet, Webseite gestartet.</div>
-
-    <div class="roadmap-phase"><strong>Phase 2 – Der Mittelfinger an Stress</strong><br>Community aufbauen – die wichtigste Phase des ganzen Projekts.</div>
-
-    <div class="roadmap-phase"><strong>Phase 3 – Mainnet Erwägung</strong><br>Vielleicht. Vielleicht nicht. T42 bleibt authentisch und ohne Druck.</div>
-
-    <div class="roadmap-phase"><strong>Phase 4 – T42 Utility?</strong><br>Wenn's die Community will – optional und flexibel.</div>
-
-    <div class="roadmap-phase"><strong>Phase 5 – The Answer To Everything</strong><br>Merch + Easter Eggs. Spaß, Überraschungen und kleine Belohnungen.</div>
-</section>
-
-<section id="tokenomics">
+  <section id="tokenomics">
     <h2>Tokenomics</h2>
+    <div class="box"><b>Total Supply:</b> 1.000.000 T42</div>
+    <div class="box"><b>Steuern:</b> 0% Buy / 0% Sell</div>
+    <div class="box"><b>Distribution:</b> 100% an den Ersteller · Keine versteckten Wallets</div>
+    <div class="box"><b>Liquidity:</b> Optional – flexibel für später</div>
+    <div class="box"><b>Burns:</b> Derzeit keine geplant · optional möglich</div>
+    <div class="box"><b>Utility:</b> Keine Verpflichtung · Community entscheidet</div>
+  </section>
 
-    <div class="tokenomics-box"><strong>Total Supply:</strong> 1.000.000 T42</div>
-    <div class="tokenomics-box"><strong>Steuern:</strong> 0% Buy / 0% Sell</div>
-    <div class="tokenomics-box"><strong>Distribution:</strong> 100% an den Ersteller · Keine versteckten Wallets</div>
-    <div class="tokenomics-box"><strong>Liquidity:</strong> Optional – flexibel für später</div>
-    <div class="tokenomics-box"><strong>Burns:</strong> Derzeit keine geplant · optional möglich</div>
-    <div class="tokenomics-box"><strong>Utility:</strong> Keine Verpflichtung · Community entscheidet</div>
-</section>
+  <section id="wallet">
+    <h2>Wallet</h2>
 
-<section id="etherscan" class="button-container">
-    <a class="etherscan-btn" href="https://sepolia.etherscan.io/address/0x47f68c14BF799afAF3bbC2Dc0E7125De4BC976D1" target="_blank">🔍 T42 auf Etherscan (Testnet)</a>
-</section>
-<section id="wallet" class="wallet-section">
     <div class="wallet-card">
-
-        <!-- Header -->
-        <div class="t42-wallet-header">
-            <img src="img/t42-logo.png" alt="T42 Logo" class="t42-logo">
-            <div>
-                <h2>T42 Test-Wallet</h2>
-                <p>Verbinde deine MetaMask auf dem <strong>Sepolia Testnetz</strong>, um deinen T42-Saldo zu sehen.</p>
-            </div>
+      <div class="wallet-head">
+        <img src="t42-token.png" alt="T42 Logo">
+        <div>
+          <h3>T42 Test-Wallet</h3>
+          <div class="sub">Verbinde MetaMask im <b>Sepolia</b>-Testnetz, um deinen T42-Saldo zu sehen.</div>
         </div>
-
-        <!-- Buttons -->
-        <div class="wallet-actions">
-            <button id="connectWalletBtn" class="wallet-btn wallet-btn-primary">
-                🔌 Wallet verbinden
-            </button>
-
-            <button id="addTokenBtn" class="wallet-btn wallet-btn-secondary">
-                ➕ T42 zu MetaMask hinzufügen
-            </button>
-        </div>
-
-
-    <!-- Info -->
-    <div id="walletInfo" class="wallet-info">
-
-      <div class="wallet-info-row">
-        <span class="wallet-label">Adresse:</span>
-        <span id="walletAddress" class="wallet-value">- nicht verbunden -</span>
       </div>
 
-      <div class="wallet-info-row">
-        <span class="wallet-label">T42-Balance:</span>
-        <span id="walletBalance" class="wallet-value">0</span>
+      <div class="button-row">
+        <button class="btn" id="connectWalletBtn">🔌 Wallet verbinden</button>
+        <button class="btn secondary" id="addTokenBtn">➕ T42 zu MetaMask hinzufügen</button>
       </div>
 
+      <div class="wallet-info">
+        <div class="row">
+          <div class="label">Adresse</div>
+          <div class="value" id="walletAddress">– nicht verbunden –</div>
+        </div>
+        <div class="row">
+          <div class="label">T42 Balance</div>
+          <div class="value" id="walletBalance">0</div>
+        </div>
+      </div>
+
+      <div class="status" id="walletStatus">Status: nicht verbunden</div>
     </div>
+  </section>
 
-  </div>
-</section>
-
-<footer>
-    <div class="footer-glow"></div>
-    
-    <div class="social-container">
-
-        <a href="https://www.facebook.com/profile.php?id=100004980010183" class="social-icon">
-            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook" class="icon-img"> Facebook
-        </a>
-        <a href="https://t.me/Token42Community" class="social-icon" target="_blank">
-            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg" alt="Telegram" class="icon-img"> Telegram Community
-        </a>
+  <section id="etherscan">
+    <h2>Etherscan</h2>
+    <div class="button-row">
+      <a class="btn" href="https://sepolia.etherscan.io/address/0x034805Dc5a298337ca5047122feeA1cE28281a7d" target="_blank" rel="noreferrer">
+        🔍 T42 auf Etherscan (Sepolia)
+      </a>
     </div>
+  </section>
 
-    <div class="footer-copy">
-        © 2025 T42 – The Answer To Everything (Don't Panic)
+  <footer>
+    <div class="social">
+      <a href="https://www.facebook.com/profile.php?id=100004980010183" target="_blank" rel="noreferrer">Facebook</a>
+      <a href="https://t.me/Token42Community" target="_blank" rel="noreferrer">Telegram Community</a>
     </div>
-</footer>
+    <div class="copy">© 2025 T42 – The Answer To Everything (Don't Panic)</div>
+  </footer>
 
+  <!-- ethers.js -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
 
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const T42_CONTRACT_ADDRESS = "0x034805Dc5a298337ca5047122feeA1cE28281a7d";
+      const T42_ABI = [
+        "function decimals() view returns (uint8)",
+        "function balanceOf(address owner) view returns (uint256)"
+      ];
 
+      const connectBtn = document.getElementById("connectWalletBtn");
+      const addTokenBtn = document.getElementById("addTokenBtn");
+      const walletAddressEl = document.getElementById("walletAddress");
+      const walletBalanceEl = document.getElementById("walletBalance");
+      const statusEl = document.getElementById("walletStatus");
 
+      let provider, signer, contract;
 
-<!-- ethers.js aus CDN -->
-<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+      function setStatus(text, type){
+        statusEl.textContent = "Status: " + text;
+        statusEl.classList.remove("ok","bad");
+        if(type) statusEl.classList.add(type);
+      }
 
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const T42_CONTRACT_ADDRESS = "0x034805Dc5a298337ca5047122feeA1cE28281a7d";
-    const T42_ABI = [
-      "function name() view returns (string)",
-      "function symbol() view returns (string)",
-      "function decimals() view returns (uint8)",
-      "function balanceOf(address owner) view returns (uint256)"
-    ];
+      function shorten(addr){
+        if(!addr || addr.length < 10) return addr;
+        return addr.slice(0,6) + "…" + addr.slice(-4);
+      }
 
-    let provider;
-    let signer;
-    let t42contract;
-
-    const connectBtn = document.getElementById("connectWalletBtn");
-    const addTokenBtn = document.getElementById("addTokenBtn");
-    const walletAddressSpan = document.getElementById("walletAddress");
-    const walletBalanceSpan = document.getElementById("walletBalance");
-
-    if (!connectBtn || !addTokenBtn || !walletAddressSpan || !walletBalanceSpan) {
-      console.error("T42-Elemente nicht gefunden:", {
-        connectBtn,
-        addTokenBtn,
-        walletAddressSpan,
-        walletBalanceSpan
-      });
-      return;
-    }
-
-    async function connectWallet() {
-      try {
-        if (!window.ethereum) {
-          alert("MetaMask wird benötigt.");
-          return;
+      async function ensureSepolia(){
+        // Sepolia chainId = 11155111 = 0xaa36a7
+        const chainId = await window.ethereum.request({ method: "eth_chainId" });
+        if(chainId !== "0xaa36a7"){
+          setStatus("falsches Netzwerk – bitte Sepolia auswählen", "bad");
+          throw new Error("Bitte Sepolia Testnetz in MetaMask auswählen.");
         }
-
-        provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-        await provider.send("eth_requestAccounts", []);
-
-        signer = provider.getSigner();
-        const address = await signer.getAddress();
-
-        t42contract = new ethers.Contract(
-          T42_CONTRACT_ADDRESS,
-          T42_ABI,
-          provider
-        );
-
-        walletAddressSpan.textContent = address;
-        await updateT42Balance(address);
-      } catch (err) {
-        console.error("Fehler beim Verbinden:", err);
-        alert("Fehler beim Verbinden:\n" + (err && err.message ? err.message : err));
       }
-    }
 
-    async function updateT42Balance(address) {
-      if (!t42contract) return;
-
-      try {
-        const [rawBalance, decimals] = await Promise.all([
-          t42contract.balanceOf(address),
-          t42contract.decimals()
+      async function updateBalance(address){
+        const [raw, decimals] = await Promise.all([
+          contract.balanceOf(address),
+          contract.decimals()
         ]);
-
-        const humanBalance = ethers.utils.formatUnits(rawBalance, decimals);
-        walletBalanceSpan.textContent = humanBalance + " T42";
-      } catch (err) {
-        console.error("Fehler beim Laden der Balance:", err);
-        walletBalanceSpan.textContent = "Fehler beim Laden";
-      }
-    }
-
-    async function addTokenToMetaMask() {
-      if (!window.ethereum) {
-        alert("MetaMask wird benötigt.");
-        return;
+        const human = ethers.utils.formatUnits(raw, decimals);
+        walletBalanceEl.textContent = human + " T42";
       }
 
-      try {
-        await window.ethereum.request({
-          method: "wallet_watchAsset",
-          params: {
-            type: "ERC20",
-            options: {
-              address: T42_CONTRACT_ADDRESS,
-              symbol: "T42",
-              decimals: 18
-            }
+      async function connectWallet(){
+        try{
+          if(!window.ethereum){
+            alert("MetaMask wird benötigt.");
+            return;
           }
-        });
-      } catch (err) {
-        console.error(err);
-        alert("T42 konnte nicht zu MetaMask hinzugefügt werden.");
+          provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+          await provider.send("eth_requestAccounts", []);
+          await ensureSepolia();
+
+          signer = provider.getSigner();
+          const address = await signer.getAddress();
+
+          contract = new ethers.Contract(T42_CONTRACT_ADDRESS, T42_ABI, provider);
+
+          walletAddressEl.textContent = address;
+          setStatus("verbunden (" + shorten(address) + ")", "ok");
+
+          await updateBalance(address);
+
+          // Update bei Account/Chain Wechsel
+          window.ethereum.on("accountsChanged", async (accs) => {
+            if(!accs || !accs[0]){
+              walletAddressEl.textContent = "– nicht verbunden –";
+              walletBalanceEl.textContent = "0";
+              setStatus("nicht verbunden");
+              return;
+            }
+            try{
+              await ensureSepolia();
+              walletAddressEl.textContent = accs[0];
+              setStatus("verbunden (" + shorten(accs[0]) + ")", "ok");
+              await updateBalance(accs[0]);
+            }catch(e){}
+          });
+
+          window.ethereum.on("chainChanged", async () => {
+            // Seite sauber neu laden (MetaMask Empfehlung)
+            location.reload();
+          });
+
+        }catch(err){
+          console.error(err);
+          alert(err && err.message ? err.message : String(err));
+        }
       }
-    }
 
-    connectBtn.addEventListener("click", connectWallet);
-    addTokenBtn.addEventListener("click", addTokenToMetaMask);
-  });
-</script>
+      async function addToken(){
+        try{
+          if(!window.ethereum){
+            alert("MetaMask wird benötigt.");
+            return;
+          }
+          await window.ethereum.request({
+            method: "wallet_watchAsset",
+            params: {
+              type: "ERC20",
+              options: {
+                address: T42_CONTRACT_ADDRESS,
+                symbol: "T42",
+                decimals: 18,
+                image: (location.origin + location.pathname.replace(/\/[^\/]*$/, "/") + "t42-token.png")
+              }
+            }
+          });
+        }catch(e){
+          console.error(e);
+          alert("T42 konnte nicht hinzugefügt werden.");
+        }
+      }
 
-
+      connectBtn.addEventListener("click", connectWallet);
+      addTokenBtn.addEventListener("click", addToken);
+    });
+  </script>
 
 </body>
 </html>
-
