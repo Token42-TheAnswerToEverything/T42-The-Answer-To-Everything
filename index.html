@@ -112,4 +112,168 @@ p{
 
 /* ---------- WALLET ---------- */
 .wallet{
-  ba
+  background:linear-gradient(180deg,#0c1016,#000);
+  border:1px solid rgba(0,234,255,.3);
+  border-radius:18px;
+  padding:30px;
+}
+.wallet h3{
+  color:var(--cyan);
+  margin-top:0;
+}
+.wallet-buttons{
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+  margin:20px 0;
+}
+.wallet button{
+  background:#111;
+  border:1px solid var(--cyan);
+  color:var(--cyan);
+  padding:12px 18px;
+  border-radius:10px;
+  cursor:pointer;
+  transition:.25s;
+}
+.wallet button:hover{
+  background:var(--cyan);
+  color:#000;
+  box-shadow:0 0 12px var(--cyan);
+}
+.wallet-info{
+  margin-top:15px;
+  font-size:.95rem;
+  opacity:.9;
+}
+
+/* ---------- FOOTER ---------- */
+footer{
+  text-align:center;
+  padding:50px 20px;
+  opacity:.6;
+  font-size:.85rem;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================== NAV ================== -->
+<nav>
+  <a href="#about">About</a>
+  <a href="#roadmap">Roadmap</a>
+  <a href="#tokenomics">Tokenomics</a>
+  <a href="#wallet">Wallet</a>
+  <a href="https://sepolia.etherscan.io/address/0x034805Dc5a298337ca5047122feeA1cE28281a7d" target="_blank">Etherscan</a>
+</nav>
+
+<!-- ================== HERO ================== -->
+<header class="hero">
+  <h1>T42 – The Answer To Everything</h1>
+  <p>
+    Der Token für Menschen, die mitten im Wandel stehen,  
+    lachen können – und akzeptieren,  
+    dass ein kleiner Rest Wehmut dazugehört.
+  </p>
+
+  <div class="coin-wrapper">
+    <img src="t42-token.png" alt="T42 Token" class="coin">
+  </div>
+</header>
+
+<!-- ================== ABOUT ================== -->
+<section id="about">
+  <h2>About T42</h2>
+  <p>
+    T42 ist kein Hype-Coin.  
+    Er ist ein Symbol für Veränderung, Ehrlichkeit und den Mut,
+    alten Stress hinter sich zu lassen –  
+    auch wenn dabei ein Stück Vergangenheit zurückbleibt.
+  </p>
+  <p>
+    Ein kleiner Mittelfinger an Druck, Chaos  
+    und Jobs, die Freiheit fressen.
+  </p>
+</section>
+
+<!-- ================== ROADMAP ================== -->
+<section id="roadmap">
+  <h2>Roadmap</h2>
+  <div class="box"><b>Phase 1 – Birth of 42</b><br>Token, Logo, Website, Testnet.</div>
+  <div class="box"><b>Phase 2 – Community</b><br>Menschen statt Marketing.</div>
+  <div class="box"><b>Phase 3 – Mainnet?</b><br>Nur wenn es sich richtig anfühlt.</div>
+</section>
+
+<!-- ================== TOKENOMICS ================== -->
+<section id="tokenomics">
+  <h2>Tokenomics</h2>
+  <div class="box">Total Supply: 1.000.000 T42</div>
+  <div class="box">Steuern: 0% Buy / 0% Sell</div>
+  <div class="box">Utility: optional · Community-getrieben</div>
+</section>
+
+<!-- ================== WALLET ================== -->
+<section id="wallet">
+  <h2>T42 Test-Wallet (Sepolia)</h2>
+
+  <div class="wallet">
+    <h3>Verbinde MetaMask</h3>
+    <p>Sepolia Testnetz erforderlich</p>
+
+    <div class="wallet-buttons">
+      <button id="connectBtn">🔌 Wallet verbinden</button>
+      <button id="addTokenBtn">➕ T42 zu MetaMask</button>
+    </div>
+
+    <div class="wallet-info">
+      Adresse: <span id="addr">– nicht verbunden –</span><br>
+      Balance: <span id="bal">0</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================== FOOTER ================== -->
+<footer>
+  © 2025 T42 – The Answer To Everything · Don’t Panic
+</footer>
+
+<!-- ================== SCRIPT ================== -->
+<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+<script>
+const CONTRACT="0x034805Dc5a298337ca5047122feeA1cE28281a7d";
+const ABI=[
+ "function balanceOf(address) view returns (uint256)",
+ "function decimals() view returns (uint8)"
+];
+
+let provider,contract;
+
+document.getElementById("connectBtn").onclick=async()=>{
+ if(!window.ethereum){alert("MetaMask fehlt");return;}
+ provider=new ethers.providers.Web3Provider(window.ethereum);
+ await provider.send("eth_requestAccounts",[]);
+ const signer=provider.getSigner();
+ const addr=await signer.getAddress();
+ document.getElementById("addr").innerText=addr;
+
+ contract=new ethers.Contract(CONTRACT,ABI,provider);
+ const bal=await contract.balanceOf(addr);
+ const dec=await contract.decimals();
+ document.getElementById("bal").innerText=
+   ethers.utils.formatUnits(bal,dec)+" T42";
+};
+
+document.getElementById("addTokenBtn").onclick=async()=>{
+ await ethereum.request({
+  method:"wallet_watchAsset",
+  params:{
+   type:"ERC20",
+   options:{address:CONTRACT,symbol:"T42",decimals:18}
+  }
+ });
+};
+</script>
+
+</body>
+</html>
