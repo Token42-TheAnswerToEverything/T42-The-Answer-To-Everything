@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>T42 – The Answer To Everything</title>
 
 <style>
 :root{
   --bg:#0b0c0d;
-  --panel:#0f1216;
-  --text:#d9d9d9;
-  --muted:#a9b0b7;
   --cyan:#00eaff;
+  --text:#d9d9d9;
   --border: rgba(0,234,255,.22);
 }
 
 *{box-sizing:border-box}
+
 body{
   margin:0;
   font-family: "Segoe UI", Arial, sans-serif;
@@ -63,7 +62,7 @@ nav a:hover{
   line-height:1.55;
 }
 
-/* COIN STAGE (STABIL, OHNE EXPERIMENTE) */
+/* COIN STAGE */
 .coin-stage{
   margin:36px auto 10px;
   width:min(900px,92vw);
@@ -82,8 +81,6 @@ nav a:hover{
     0 0 40px rgba(0,234,255,.15),
     inset 0 0 80px rgba(0,234,255,.08);
 }
-
-/* COIN */
 .coin-wrap{
   width:min(300px,42vw);
   height:min(300px,42vw);
@@ -101,7 +98,7 @@ nav a:hover{
   border-radius:50%;
 }
 
-/* SECTIONS */
+/* CONTENT */
 section{
   max-width:980px;
   margin:0 auto;
@@ -116,8 +113,6 @@ p{
   font-size:1.15rem;
   line-height:1.65;
 }
-
-/* BOX */
 .box{
   background:linear-gradient(180deg, rgba(17,17,17,.9), rgba(14,16,20,.9));
   border:1px solid var(--border);
@@ -164,6 +159,11 @@ footer{
   font-size:.9rem;
   color:rgba(170,176,183,.9);
 }
+.counter{
+  margin-top:8px;
+  font-size:.85rem;
+  color:rgba(170,176,183,.8);
+}
 </style>
 </head>
 
@@ -188,33 +188,26 @@ footer{
 
 <section id="about">
   <h2>About T42</h2>
-  <p>T42 ist kein Investmentversprechen. Kein Hype. Kein Druck.</p>
-  <p>Ein Symbol für Wandel, Freiheit und Humor – für Menschen, die neu anfangen.</p>
+  <p>T42 ist kein Investmentversprechen. Er ist ein Symbol. Ein stilles Lächeln im Chaos.</p>
 </section>
 
 <section id="roadmap">
   <h2>Roadmap</h2>
-  <div class="box">Phase 1 – Birth of 42</div>
-  <div class="box">Phase 2 – Community first</div>
-  <div class="box">Phase 3 – Optionaler Nutzen</div>
+  <p>Community → Freiheit → Humor → Optionaler Sinn</p>
 </section>
 
 <section id="tokenomics">
   <h2>Tokenomics</h2>
-  <div class="box">Total Supply: 1.000.000 T42</div>
-  <div class="box">0% Buy / 0% Sell</div>
-  <div class="box">Community-getrieben</div>
+  <p>1.000.000 T42 · 0% Tax · Kein Druck</p>
 </section>
 
 <footer>
   <div class="social">
-    <!-- FACEBOOK: RICHTIGE SEITE -->
-    <a href="https://www.facebook.com/profile.php?id=61584275210003"_blank" rel="noreferrer">
+    <a href="https://www.facebook.com/profile.php?id=61584275210003" target="_blank" rel="noreferrer">
       <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="">
       Facebook
     </a>
 
-    <!-- TELEGRAM -->
     <a href="https://t.me/Token42Community" target="_blank" rel="noreferrer">
       <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg" alt="">
       Telegram
@@ -224,7 +217,20 @@ footer{
   <div class="copy">
     © 2025 T42 – The Answer To Everything · Don’t Panic
   </div>
+
+  <div class="counter">
+    Seitenaufrufe: <span id="visitCount">–</span>
+  </div>
 </footer>
+
+<script>
+/* Einfacher Besucher-Counter (lokal, GitHub-Pages-safe) */
+const key = "t42_page_visits";
+let count = localStorage.getItem(key);
+count = count ? parseInt(count, 10) + 1 : 1;
+localStorage.setItem(key, count);
+document.getElementById("visitCount").textContent = count.toLocaleString("de-DE");
+</script>
 
 </body>
 </html>
