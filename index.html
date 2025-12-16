@@ -12,7 +12,6 @@
       --text:#d9d9d9;
       --muted:#a9b0b7;
       --cyan:#00eaff;
-      --cyan2:#00b7c8;
       --border: rgba(0,234,255,.22);
       --shadow: rgba(0,234,255,.18);
     }
@@ -117,7 +116,7 @@
       width: min(320px, 44vw);
       height: min(320px, 44vw);
       border-radius: 50%;
-      overflow:hidden;
+      overflow:hidden; /* kill rectangle edges */
       box-shadow: 0 0 26px rgba(0,234,255,.22);
       border: 1px solid rgba(0,234,255,.14);
       background: radial-gradient(circle at 50% 50%,
@@ -127,6 +126,7 @@
       transform: translateZ(0);
     }
 
+    /* ✅ COIN ROTATION WIEDER AN */
     .coin{
       width: 100%;
       height: 100%;
@@ -134,17 +134,16 @@
       border-radius: 50%;
       transform: scale(1.12);
       filter: drop-shadow(0 12px 18px rgba(0,0,0,.55));
-      animation: coinFloat 5.2s ease-in-out infinite, coinRotate 12s ease-in-out infinite;
+      animation: coinFloat 5.2s ease-in-out infinite, coinRotate 10s linear infinite;
       will-change: transform;
     }
-
     @keyframes coinFloat{
       0%,100%{ transform: translateY(0) scale(1.12); }
       50%{ transform: translateY(-8px) scale(1.12); }
     }
     @keyframes coinRotate{
-      0%,100%{ rotate: -2deg; }
-      50%{ rotate: 2deg; }
+      from{ rotate: 0deg; }
+      to{ rotate: 360deg; }
     }
 
     /* SECTIONS */
@@ -232,4 +231,360 @@
     }
 
     .mini-logo{
-      width:44px; height:44
+      width:44px; height:44px;
+      border-radius: 14px;
+      display:grid;
+      place-items:center;
+      border: 1px solid rgba(0,234,255,.18);
+      background: rgba(0,234,255,.08);
+      box-shadow: 0 0 14px rgba(0,234,255,.12);
+      overflow:hidden;
+    }
+    .mini-logo img{
+      width: 120%;
+      height: 120%;
+      object-fit: cover;
+      border-radius: 50%;
+      transform: scale(1.05);
+    }
+
+    .wallet-title h3{
+      margin:0;
+      font-size: 1.4rem;
+      color: var(--cyan);
+    }
+    .wallet-title p{
+      margin:4px 0 0;
+      font-size: 1rem;
+      color: rgba(204,204,204,.9);
+    }
+
+    .status{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size: .95rem;
+      color: rgba(217,217,217,.9);
+    }
+    .dot{
+      width:10px; height:10px;
+      border-radius:50%;
+      background: #6b7280;
+      box-shadow:none;
+    }
+    .dot.on{
+      background: #22c55e;
+      box-shadow: 0 0 10px rgba(34,197,94,.55);
+    }
+
+    .wallet-actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin: 12px 0 14px;
+    }
+
+    .wallet-info{
+      display:grid;
+      gap:10px;
+      margin-top: 8px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+
+    .row{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.05);
+    }
+
+    .label{
+      color: rgba(170,176,183,.95);
+      font-size: .95rem;
+    }
+
+    .value{
+      color: #eafcff;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: .95rem;
+      word-break: break-all;
+    }
+
+    /* FOOTER */
+    footer{
+      padding: 42px 18px;
+      text-align:center;
+      opacity:.92;
+      border-top: 1px solid rgba(255,255,255,.06);
+      background: rgba(0,0,0,.25);
+    }
+    .social{
+      display:flex;
+      gap:18px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin: 14px 0 10px;
+    }
+    .social a{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      color: var(--cyan);
+      text-decoration:none;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,234,255,.18);
+      background: rgba(255,255,255,.03);
+      transition:.22s;
+    }
+    .social a:hover{
+      background: rgba(0,234,255,.10);
+      box-shadow: 0 0 14px rgba(0,234,255,.18);
+      transform: translateY(-1px);
+      color:#fff;
+    }
+    .social img{
+      width:18px; height:18px;
+      filter: invert(85%) sepia(40%) saturate(3600%) hue-rotate(150deg);
+    }
+    .copy{
+      font-size: .9rem;
+      color: rgba(170,176,183,.9);
+      margin-top: 8px;
+    }
+    .counter{
+      margin-top: 8px;
+      font-size: .85rem;
+      color: rgba(170,176,183,.78);
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <a href="#about">About</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="#tokenomics">Tokenomics</a>
+    <a href="#wallet">Wallet</a>
+    <a href="#etherscan">Etherscan</a>
+  </nav>
+
+  <header class="hero">
+    <h1>T42 – The Answer To Everything</h1>
+    <p>Der Token für Menschen, die mitten im Wandel stehen.</p>
+
+    <div class="coin-stage" aria-label="T42 Coin">
+      <div class="coin-wrap">
+        <img class="coin" src="t42-token.png" alt="T42 Token Coin" />
+      </div>
+    </div>
+  </header>
+
+  <section id="about">
+    <h2>About T42</h2>
+    <p>Der Token für Menschen, die mitten im Wandel stehen, lachen können – und akzeptieren, dass ein kleiner Rest Wehmut dazugehört.</p>
+    <p>T42 ist humorvoll, aber tiefgründig. Er symbolisiert Veränderung, Sinnsuche und den Mut, alten Stress hinter sich zu lassen.</p>
+  </section>
+
+  <section id="roadmap">
+    <h2>Roadmap</h2>
+    <div class="box"><strong>Phase 1 – Birth of 42</strong><br/>Token erstellt, Logo gebaut, GitHub eingerichtet, Webseite gestartet.</div>
+    <div class="box"><strong>Phase 2 – Community first</strong><br/>Community aufbauen – die wichtigste Phase.</div>
+    <div class="box"><strong>Phase 3 – Mainnet Erwägung</strong><br/>Vielleicht. Vielleicht nicht. Ohne Druck.</div>
+  </section>
+
+  <section id="tokenomics">
+    <h2>Tokenomics</h2>
+    <div class="box"><strong>Total Supply:</strong> 1.000.000 T42</div>
+    <div class="box"><strong>Steuern:</strong> 0% Buy / 0% Sell</div>
+    <div class="box"><strong>Community:</strong> Community-getrieben</div>
+  </section>
+
+  <section id="wallet">
+    <h2>Wallet</h2>
+
+    <div class="wallet-card">
+      <div class="wallet-header">
+        <div class="wallet-title">
+          <div class="mini-logo">
+            <img src="t42-token.png" alt="T42 Mini Logo">
+          </div>
+          <div>
+            <h3>T42 Test-Wallet</h3>
+            <p>Verbinde MetaMask auf dem <strong>Sepolia Testnetz</strong>, um deinen T42-Saldo zu sehen.</p>
+          </div>
+        </div>
+
+        <div class="status">
+          <span id="statusDot" class="dot"></span>
+          <span id="statusText">Nicht verbunden</span>
+        </div>
+      </div>
+
+      <div class="wallet-actions">
+        <button id="connectWalletBtn" class="btn primary">🔌 Wallet verbinden</button>
+        <button id="addTokenBtn" class="btn">➕ T42 zu MetaMask hinzufügen</button>
+      </div>
+
+      <div class="wallet-info">
+        <div class="row">
+          <div class="label">Adresse</div>
+          <div id="walletAddress" class="value">—</div>
+        </div>
+        <div class="row">
+          <div class="label">T42-Balance</div>
+          <div id="walletBalance" class="value">—</div>
+        </div>
+        <div class="row">
+          <div class="label">Netzwerk</div>
+          <div id="walletNetwork" class="value">—</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="etherscan" class="center">
+    <h2>Etherscan</h2>
+    <a class="btn" href="https://sepolia.etherscan.io/address/0x034805Dc5a298337ca5047122feeA1cE28281a7d" target="_blank" rel="noreferrer">
+      🔍 T42 auf Etherscan (Sepolia)
+    </a>
+  </section>
+
+  <footer>
+    <div class="social">
+      <a href="https://www.facebook.com/profile.php?id=61584275210003" target="_blank" rel="noreferrer">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="">
+        Facebook
+      </a>
+      <a href="https://t.me/Token42Community" target="_blank" rel="noreferrer">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg" alt="">
+        Telegram Community
+      </a>
+    </div>
+
+    <div class="copy">© 2025 T42 – The Answer To Everything (Don't Panic)</div>
+    <div class="counter">Seitenaufrufe: <span id="visitCount">–</span></div>
+  </footer>
+
+  <!-- ethers.js -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+
+  <script>
+    // Contract (B)
+    const T42_CONTRACT_ADDRESS = "0x034805Dc5a298337ca5047122feeA1cE28281a7d";
+    const T42_ABI = [
+      "function decimals() view returns (uint8)",
+      "function balanceOf(address owner) view returns (uint256)"
+    ];
+    const SEPOLIA_CHAIN_ID_HEX = "0xaa36a7"; // 11155111
+
+    const connectBtn = document.getElementById("connectWalletBtn");
+    const addTokenBtn = document.getElementById("addTokenBtn");
+    const walletAddressEl = document.getElementById("walletAddress");
+    const walletBalanceEl = document.getElementById("walletBalance");
+    const walletNetworkEl = document.getElementById("walletNetwork");
+    const statusDot = document.getElementById("statusDot");
+    const statusText = document.getElementById("statusText");
+
+    let provider, signer, contract;
+
+    function shortAddr(a){
+      if(!a) return "—";
+      return a.slice(0,6) + "…" + a.slice(-4);
+    }
+
+    function setConnectedUI(addr){
+      statusDot.classList.add("on");
+      statusText.textContent = "Verbunden";
+      walletAddressEl.textContent = addr ? shortAddr(addr) : "—";
+    }
+
+    function setDisconnectedUI(){
+      statusDot.classList.remove("on");
+      statusText.textContent = "Nicht verbunden";
+      walletAddressEl.textContent = "—";
+      walletBalanceEl.textContent = "—";
+      walletNetworkEl.textContent = "—";
+    }
+
+    async function ensureSepolia(){
+      const chainId = await window.ethereum.request({ method: "eth_chainId" });
+      walletNetworkEl.textContent = (chainId === SEPOLIA_CHAIN_ID_HEX) ? "Sepolia" : ("Chain " + chainId);
+
+      if(chainId !== SEPOLIA_CHAIN_ID_HEX){
+        await window.ethereum.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: SEPOLIA_CHAIN_ID_HEX }]
+        });
+        walletNetworkEl.textContent = "Sepolia";
+      }
+    }
+
+    async function connectWallet(){
+      try{
+        if(!window.ethereum){
+          alert("MetaMask wird benötigt.");
+          return;
+        }
+
+        await ensureSepolia();
+
+        provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+        await provider.send("eth_requestAccounts", []);
+        signer = provider.getSigner();
+
+        const addr = await signer.getAddress();
+        setConnectedUI(addr);
+
+        contract = new ethers.Contract(T42_CONTRACT_ADDRESS, T42_ABI, provider);
+        const [raw, dec] = await Promise.all([contract.balanceOf(addr), contract.decimals()]);
+        const human = ethers.utils.formatUnits(raw, dec);
+        walletBalanceEl.textContent = human + " T42";
+      }catch(e){
+        console.error(e);
+        setDisconnectedUI();
+      }
+    }
+
+    async function addTokenToMetaMask(){
+      if(!window.ethereum){
+        alert("MetaMask wird benötigt.");
+        return;
+      }
+      try{
+        await ensureSepolia();
+        const imageUrl = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, "/") + "t42-token.png";
+        await window.ethereum.request({
+          method: "wallet_watchAsset",
+          params: {
+            type: "ERC20",
+            options: { address: T42_CONTRACT_ADDRESS, symbol: "T42", decimals: 18, image: imageUrl }
+          }
+        });
+      }catch(e){
+        console.error(e);
+        alert("T42 konnte nicht zu MetaMask hinzugefügt werden.");
+      }
+    }
+
+    connectBtn.addEventListener("click", connectWallet);
+    addTokenBtn.addEventListener("click", addTokenToMetaMask);
+    window.addEventListener("load", () => setDisconnectedUI());
+
+    // Counter (lokal pro Browser)
+    const key = "t42_page_visits";
+    let count = localStorage.getItem(key);
+    count = count ? (parseInt(count,10) + 1) : 1;
+    localStorage.setItem(key, String(count));
+    const el = document.getElementById("visitCount");
+    if (el) el.textContent = count.toLocaleString("de-DE");
+  </script>
+</body>
+</html>
